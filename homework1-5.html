@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Title</title>
+</head>
+
+<div id="app">
+    <div>
+        <label>Login</label>
+        <input type="text" v-model="login">
+    </div>
+    <div>
+        <label>Password</label>
+        <input type="password" v-model="password">
+    </div>
+    <button @click="getNewUser">Go</button>
+    <p>{{message}}</p>
+</div>
+<body>
+<script>
+    const {createApp} = Vue
+
+    createApp({
+        data() {
+            return {
+                arrayOfUsers: [
+                    {
+                        login: 'oksana',
+                        password: '12345',
+                    },
+                    {
+                        login: 'anton',
+                        password: '54321',
+                    },
+                    {
+                        login: 'dima',
+                        password: '67890',
+                    }
+                ],
+                login: null,
+                password: null,
+                message: '',
+            }
+        },
+        methods: {
+            getNewUser() {
+                let newUser =  this.arrayOfUsers.find((el) => {
+                    return  el.login === this.login && el.password === this.password})
+
+                if(newUser){
+                    this.message = "You can log in! "
+                } else {
+                    this.message = "You can`t log in! "
+                }
+                return this.message;
+            }
+        },
+        computed: {}
+    }).mount('#app')
+</script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <div>
+        <label>Курс</label>
+        <input type="number" v-model="dollarRate">
+    </div>
+    <div>
+        <label>Гривні</label>
+        <input type="number" v-model.lazy="grnSum" @focus="onFocus()">
+    </div>
+    <hr>
+    <div>
+        <label>Долари</label>
+        <span>{{dollarSum}}</span>
+    </div>
+    <div>
+        <label>Євро</label>
+        <span>{{evroSum}}</span>
+    </div>
+</div>
+
+<script>
+    const {createApp} = Vue
+
+    createApp({
+        data() {
+            return {
+                dollarRate: 38,
+                grnSum: null,
+
+            }
+        },
+        methods: {
+            //Розібратися чому не працює
+            onFocus(){
+                this.grnSum = 0;
+            }
+        },
+        computed:{
+            dollarSum() {
+                return (this.grnSum / this.dollarRate).toFixed(2)
+            },
+            evroSum() {
+                return (this.dollarSum * 1.07).toFixed(2)
+            },
+
+        }
+    }).mount('#app')
+</script>
+</body>
+</html>

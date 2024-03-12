@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Title</title>
+</head>
+
+<div id="app">
+    <div>
+        <label>Номер місяця:</label>
+        <input type="number" v-model.lazy="numberOfMonth">
+    </div>
+    <div>
+        <p>Рекомендований одяг: <span>{{getRecommendedClothes}}</span>
+        </p>
+    </div>
+    <div>
+        <img :src="getRecommendedImage" alt="">
+    </div>
+
+</div>
+<body>
+<script>
+    const {createApp} = Vue;
+
+    createApp({
+        data() {
+            return {
+                numberOfMonth: null,
+                recommendedClothes: '',
+                recommendedImage:'',
+                summerImage:'/image/summer.jpg',
+                winterImage:'/image/winter.jpg',
+                springImage:'/image/spring.webp',
+                autumnImage:'/image/autumn.webp',
+
+            }
+        },
+        methods: {},
+        computed: {
+            getRecommendedClothes() {
+                if (this.numberOfMonth >= 3 && this.numberOfMonth <= 5) {
+                    return this.recommendedClothes = 'jacket'
+                } else if (this.numberOfMonth >= 6 && this.numberOfMonth <= 8) {
+                    return this.recommendedClothes = 'shorts'
+                } else if (this.numberOfMonth >= 9 && this.numberOfMonth <= 11) {
+                    return this.recommendedClothes = 'coat'
+                } else if (this.numberOfMonth === 12 || this.numberOfMonth === 1 || this.numberOfMonth === 2) {
+                    return this.recommendedClothes = 'hat'
+                }
+            },
+            getRecommendedImage(){
+                if (this.numberOfMonth >= 3 && this.numberOfMonth <= 5) {
+                    return this.recommendedImage = this.springImage;
+                } else if (this.numberOfMonth >= 6 && this.numberOfMonth <= 8) {
+                    return this.recommendedImage = this.summerImage;
+                } else if (this.numberOfMonth >= 9 && this.numberOfMonth <= 11) {
+                    return this.recommendedImage = this.autumnImage;
+                } else if (this.numberOfMonth === 12 || this.numberOfMonth === 1 || this.numberOfMonth === 2) {
+                    return this.recommendedImage = this.winterImage;
+                }
+            }
+
+        }
+    }).mount('#app')
+</script>
+</body>
+</html>

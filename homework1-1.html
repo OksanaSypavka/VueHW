@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <div>
+        <label>Кількість пасажирів</label>
+        <input type="number" v-model="numOfPassengers">
+    </div>
+    <div>
+        <p>Кількість автобусів</p>
+        <span>{{getAmountOfBus}}</span>
+    </div>
+    <div>
+        <p>Кількість пляшок води</p>
+        <span>{{getAmountOfBottle}}</span>
+    </div>
+    <div>
+        <p>Кількість бутербродів</p>
+        <span>{{getAmountOfSandwich}}</span>
+    </div>
+</div>
+<script>
+    const {createApp} = Vue
+
+    createApp({
+        data() {
+            return {
+                numOfPassengers: null,
+            }
+        },
+        methods: {},
+        computed: {
+            getAmountOfBus() {
+                return Math.round(this.numOfPassengers / 20)
+            },
+            getAmountOfBottle() {
+                return Math.round(this.numOfPassengers / 2)
+            },
+            getAmountOfSandwich() {
+                return Math.round(this.numOfPassengers / 3)
+            }
+        }
+    }).mount('#app')
+
+</script>
+</body>
+</html>

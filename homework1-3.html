@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Title</title>
+</head>
+
+<div id="app">
+    <div>
+        <p>Задано діапазон від 1 до 100</p>
+        <button @click="getNumber">Click</button>
+        <hr>
+        <p>Рандомне число:  <span>{{randomNumber}}</span></p>
+
+    </div>
+
+</div>
+<body>
+<script>
+    const {createApp} = Vue
+
+    createApp({
+        data() {
+            return {
+                startOfDiapason:0,
+                endOfDiapason:100,
+                randomNumber:0,
+
+            }
+        },
+        methods: {
+            getNumber(){
+                return this.randomNumber = Math.floor(Math.random()*(this.endOfDiapason-this.startOfDiapason+1))+this.startOfDiapason;
+            }
+        },
+        computed: {}
+    }).mount('#app')
+</script>
+</body>
+</html>

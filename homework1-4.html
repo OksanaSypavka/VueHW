@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Title</title>
+</head>
+
+<div id="app">
+    <div>
+        <label>Сума на рахунку </label>
+        <input type="number" v-model.lazy="sumOnTheAccount">
+    </div>
+    <div>
+        <label>Зарахувати на рахунок </label>
+        <input type="number" v-model.lazy="amountOfDeposit">
+        <button @click="getDepositMoney">Зарахувати</button>
+    </div>
+    <div>
+        <label>Зняти з рахунку </label>
+        <input type="number" v-model.lazy="amountOfWithdraw">
+        <button @click="getWithdrawMoney">Зняти</button>
+    </div>
+    <div>
+        <p>Відсотки за обслуговування </p>
+        <span>{{amountOfPercent }}грн</span>
+    </div>
+    <hr>
+    <div>
+        <label>Сума в доларах:</label>
+        <span>${{dollarSum}}</span>
+    </div>
+    <div>
+        <label>Сума в євро:</label>
+        <span>Є{{evroSum}}</span>
+    </div>
+</div>
+<body>
+<script>
+    const {createApp} = Vue
+
+    createApp({
+        data() {
+            return {
+                sumOnTheAccount: null,
+                dollarRate: 38,
+                euroRate: 42,
+                amountOfDeposit: null,
+                amountOfWithdraw: null,
+                amountOfPercent: 0,
+            }
+        },
+        methods: {
+            getDepositMoney() {
+                if (this.amountOfDeposit >= 0) {
+                    this.sumOnTheAccount = this.sumOnTheAccount + (this.amountOfDeposit - this.getAmountOfPercent);
+                    console.log( this.amountOfDeposit)
+                    this.amountOfDeposit = 0;
+                    return  this.sumOnTheAccount;
+                } else {
+                    alert("You can`t enter negative numbers")
+                };
+
+
+
+            },
+            getWithdrawMoney() {
+                if (this.amountOfWithdraw <= this.sumOnTheAccount) {
+                    this.sumOnTheAccount = this.sumOnTheAccount - this.amountOfWithdraw - this.getAmountOfPercent;
+                    this.amountOfWithdraw = 0;
+                    return this.sumOnTheAccount;
+
+                } else {
+                    alert("You don`t have enough money")
+                };
+
+
+            },
+
+        },
+        computed: {
+            dollarSum() {
+                return (this.sumOnTheAccount * this.dollarRate).toFixed(2);
+            },
+            evroSum() {
+                return (this.sumOnTheAccount * this.euroRate).toFixed(2)
+            },
+            getAmountOfPercent(){
+                if(this.amountOfDeposit > 0){
+                    return this.amountOfPercent = (this.amountOfDeposit * 0.03).toFixed(2)
+                } else{
+                    return this.amountOfPercent = (this.amountOfWithdraw * 0.03).toFixed(2)
+                }
+            }
+
+
+        }
+    }).mount('#app')
+</script>
+</body>
+</html>
