@@ -8,7 +8,16 @@
 
 <div id="app">
     <div>
-        <p>Задано діапазон від 1 до 100</p>
+        <div>
+            <label>Задайте початок діапазону</label>
+            <input type="number" v-model="startOfDiapason">
+        </div>
+        <br>
+        <div>
+            <label>Задайте кінець діапазону</label>
+            <input type="number" v-model="endOfDiapason">
+        </div>
+
         <button @click="getNumber">Click</button>
         <hr>
         <p>Рандомне число:  <span>{{randomNumber}}</span></p>
@@ -23,8 +32,8 @@
     createApp({
         data() {
             return {
-                startOfDiapason:0,
-                endOfDiapason:100,
+                startOfDiapason:null,
+                endOfDiapason:null,
                 randomNumber:0,
 
             }

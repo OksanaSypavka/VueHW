@@ -8,15 +8,15 @@
 
 <div id="app">
     <div>
-        <label>Номер місяця:</label>
-        <input type="number" v-model.lazy="numberOfMonth">
+        <label>Введіть номер місяця:</label>
+        <input type="number" v-model.lazy="numberOfMonth" min='1' max='12'>
     </div>
     <div>
         <p>Рекомендований одяг: <span>{{getRecommendedClothes}}</span>
         </p>
     </div>
     <div>
-        <img :src="getRecommendedImage" alt="">
+        <img :src="getRecommendedImage" alt="" height="200">
     </div>
 
 </div>
@@ -24,41 +24,45 @@
 <script>
     const {createApp} = Vue;
 
+    const summerImage = '/image/summer.jpg';
+    const winterImage = '/image/winter.jpg';
+    const springImage = '/image/spring.webp';
+    const autumnImage = '/image/autumn.webp';
+    const springClothes = 'jacket';
+    const summerClothes = 'shorts';
+    const autumnClothes = 'coat';
+    const winterClothes = 'hat';
+
     createApp({
         data() {
             return {
                 numberOfMonth: null,
                 recommendedClothes: '',
-                recommendedImage:'',
-                summerImage:'/image/summer.jpg',
-                winterImage:'/image/winter.jpg',
-                springImage:'/image/spring.webp',
-                autumnImage:'/image/autumn.webp',
-
+                recommendedImage: '',
             }
         },
         methods: {},
         computed: {
             getRecommendedClothes() {
                 if (this.numberOfMonth >= 3 && this.numberOfMonth <= 5) {
-                    return this.recommendedClothes = 'jacket'
+                    return this.recommendedClothes = springClothes;
                 } else if (this.numberOfMonth >= 6 && this.numberOfMonth <= 8) {
-                    return this.recommendedClothes = 'shorts'
+                    return this.recommendedClothes = summerClothes;
                 } else if (this.numberOfMonth >= 9 && this.numberOfMonth <= 11) {
-                    return this.recommendedClothes = 'coat'
+                    return this.recommendedClothes = autumnClothes
                 } else if (this.numberOfMonth === 12 || this.numberOfMonth === 1 || this.numberOfMonth === 2) {
-                    return this.recommendedClothes = 'hat'
+                    return this.recommendedClothes = winterClothes;
                 }
             },
-            getRecommendedImage(){
+            getRecommendedImage() {
                 if (this.numberOfMonth >= 3 && this.numberOfMonth <= 5) {
-                    return this.recommendedImage = this.springImage;
+                    return this.recommendedImage = springImage;
                 } else if (this.numberOfMonth >= 6 && this.numberOfMonth <= 8) {
-                    return this.recommendedImage = this.summerImage;
+                    return this.recommendedImage = summerImage;
                 } else if (this.numberOfMonth >= 9 && this.numberOfMonth <= 11) {
-                    return this.recommendedImage = this.autumnImage;
+                    return this.recommendedImage = autumnImage;
                 } else if (this.numberOfMonth === 12 || this.numberOfMonth === 1 || this.numberOfMonth === 2) {
-                    return this.recommendedImage = this.winterImage;
+                    return this.recommendedImage = winterImage;
                 }
             }
 
